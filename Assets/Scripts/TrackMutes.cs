@@ -8,9 +8,11 @@ public class TrackMutes : MonoBehaviour
 
     private AudioSource aud;
 
-    public int counter;
+
     private const int BEAT = 40;
 
+    public static int beat = 40;
+    public static int counter;
     void Awake()
     {
         counter = -20;
@@ -43,15 +45,15 @@ public class TrackMutes : MonoBehaviour
     void FixedUpdate()
     {
         counter++;
-        if (counter == BEAT * 4)
+        if (counter == beat * 4)
         {
             counter = 0;
         }
     }
 
-    public bool PhraseStart()
+    public static bool PhraseStart()
     {
-        return (counter == 0 || counter == BEAT * 4);
+        return (counter == 0 || counter == beat * 4);
     }
 
 }
