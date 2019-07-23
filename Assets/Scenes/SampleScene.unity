@@ -193,7 +193,7 @@ GameObject:
   - component: {fileID: 252891201}
   - component: {fileID: 252891200}
   m_Layer: 0
-  m_Name: Track
+  m_Name: Baseline
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -321,8 +321,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73a80a232df34ae45ac6235784f1a28e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  aud: {fileID: 0}
   currentState: 0
+  fadeTime: 1.5
 --- !u!1 &422583433
 GameObject:
   m_ObjectHideFlags: 0
@@ -590,10 +590,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d071c2e97fedee4fadb603df8573785, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  trackGOs:
-  - {fileID: 252891198}
-  - {fileID: 1461255107}
-  counter: 0
 --- !u!1 &1461255107
 GameObject:
   m_ObjectHideFlags: 0
@@ -606,7 +602,7 @@ GameObject:
   - component: {fileID: 1461255110}
   - component: {fileID: 1461255109}
   m_Layer: 0
-  m_Name: Track (1)
+  m_Name: Drumline
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -734,5 +730,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73a80a232df34ae45ac6235784f1a28e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  aud: {fileID: 0}
   currentState: 0
+  fadeTime: 1.5
