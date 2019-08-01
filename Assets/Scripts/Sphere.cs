@@ -11,6 +11,8 @@ public class Sphere : MonoBehaviour
     float gravity = 20.0f;
     private Vector3 moveDirection = Vector3.zero;
 
+    public TrackMutes tracks;
+
 
 
     // Start is called before the first frame update
@@ -33,6 +35,14 @@ public class Sphere : MonoBehaviour
             if (Input.GetButton("Jump"))
             {
                 moveDirection.y = jumpSpeed;
+                if (tracks.IsActive(0))
+                {
+                    print("baseline is active, stronger jump");
+                }
+                else
+                {
+                    print("baseline is inactive, weaker jump");
+                }
             }
         }
 

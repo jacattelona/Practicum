@@ -25,7 +25,7 @@ public class TrackMutes : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             if (tracks[0].currentState == Track.State.Muted)
             {
@@ -52,6 +52,17 @@ public class TrackMutes : MonoBehaviour
     public bool PhraseStart()
     {
         return (counter == 0 || counter == BEAT * 4);
+    }
+
+    public bool IsActive(int track)
+    {
+        Track t = tracks[track];
+
+        if (t.currentState == Track.State.UnMuted)
+            return true;
+
+        else
+            return false;
     }
 
 }
