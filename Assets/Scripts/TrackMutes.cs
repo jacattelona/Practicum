@@ -29,13 +29,41 @@ public class TrackMutes : MonoBehaviour
         {
             if (tracks[0].currentState == Track.State.Muted)
             {
-                print("Start Wait Time");
+               // print("Start Wait Time");
                 tracks[0].WaitToUnmute();
             }
             else
             {
-                print("Muted");
+                //print("Muted");
                 tracks[0].Mute();
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            if (tracks[1].currentState == Track.State.Muted)
+            {
+               // print("Start Wait Time");
+                tracks[1].WaitToUnmute();
+            }
+            else
+            {
+                //print("Muted");
+                tracks[1].Mute();
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            if (tracks[2].currentState == Track.State.Muted)
+            {
+                // print("Start Wait Time");
+                tracks[2].WaitToUnmute();
+            }
+            else
+            {
+                //print("Muted");
+                tracks[2].Mute();
             }
         }
     }
@@ -63,6 +91,15 @@ public class TrackMutes : MonoBehaviour
 
         else
             return false;
+    }
+
+    public bool WithinRange(int range)
+    {
+        int off = counter % BEAT;
+        if (off < range || off > BEAT - range){
+            return true;
+        }
+        return false;
     }
 
 }

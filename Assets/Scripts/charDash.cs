@@ -11,6 +11,7 @@ public class charDash : MonoBehaviour
     public float dashTime;
     public float startDashTime;
     int direction;
+    bool isActive = false;
 
     // Start is called before the first frame update
     void Start()
@@ -57,5 +58,10 @@ public class charDash : MonoBehaviour
                     }
             }
         }
+    }
+
+    public void SetActive(bool active)
+    {
+        isActive = active;
     }
 }

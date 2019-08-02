@@ -26,7 +26,7 @@ public class Track : MonoBehaviour
     {
         if (currentState == State.Waiting)
         {
-            print("Waiting");
+            //print("Waiting");
             if (mutes.PhraseStart())
             {
                 if (aud.isPlaying)
