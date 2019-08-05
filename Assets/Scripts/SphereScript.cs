@@ -13,18 +13,22 @@ public class SphereScript : MonoBehaviour
     public Vector3 moveDirection = Vector3.zero;
     int jumpCount = 0;
 
-    public TrackMutes tracks;
-    public charDash dash;
+    float dashTime = 0;
+    float dashSpeed = 18.0f;
+    float dashMult = 1.0f;
+    bool dashing = false;
 
+    public TrackMutes tracks;
+
+    private bool dashEnabled = true;
     private bool dJumpEnabled;
     
 
     // Start is called before the first frame update
     void Start()
     {
-        print ("Testing...");
+        //print ("Testing...");
         controller = GetComponent<CharacterController>();
-        dash = GetComponent<charDash>();
     }
 
     // Update is called once per frame
@@ -32,29 +36,95 @@ public class SphereScript : MonoBehaviour
     {
         UpdateTracks();
 
-        //print(controller.isGrounded);
+        Jump();
+        Walk();
+        Dash();
+
+        //Terminal Velocity
+        if (moveDirection.y > -25.0f)
+            moveDirection.y -= gravity * Time.deltaTime;
+
+        //Move character based on previous function calls
+        controller.Move(moveDirection * Time.deltaTime);
+    }
+
+    //Dash portion of update script, only affects x component of moveDirection
+    void Dash()
+    {
+        //If we just pressed shift, and not currently dashing, and dashing is enabled
+        if (Input.GetKeyDown(KeyCode.LeftShift) && !dashing && dashEnabled)
+        {
+            //set dash to true, give half a second of dash time
+            dashing = true;
+            dashTime = .5f;
+        }
+
+        //if dashing
+        if (dashing)
+        {
+            //boost current movement direction
+            moveDirection.x += (dashTime * dashSpeed * dashMult);
+
+            //tick down dash time
+            dashTime -= Time.deltaTime;
+        }
+
+        //if we finished dashing
+        if (dashTime <= 0)
+        {
+            //set dashTime to 0, set dashing to false
+            dashTime = 0;
+            dashing = false;
+        }
+    }
+
+    //Basic left+right movement portion of update script, only affects x component of moveDirection
+    void Walk()
+    {
+        //Get axis, multiiply by speed
+        moveDirection.x = Input.GetAxis("Horizontal");
+        moveDirection.x *= speed;
+
+        //set the proper direction for dashing
+        if (moveDirection.x > 0) dashMult = 1.0f;
+        else  if (moveDirection.x < 0) dashMult = -1.0f;
+    }
+
+    //Jump portion of update script (only affects y component of moveDirection)
+    void Jump()
+    {
+        //if grounded
         if (controller.isGrounded)
         {
+            //reset jump count
             jumpCount = 0;
-            moveDirection = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0.0f);
-            moveDirection *= speed;
-
+            //if jump button is pressed
             if (Input.GetButtonDown("Jump"))
             {
+                //get jump height
                 float jump = jumpSpeed;
+
+                //extra jump height is given if timed properly with music
                 if (tracks.WithinRange(8))
                 {
                     jump *= jumpMult;
                     print("Super Jump");
                 }
+
+                //set moveDirection y to the jump value
                 moveDirection.y = jump;
-                jumpCount = jumpCount + 1;
-                //print(jumpCount);
+
+                //set jumpcount to 1
+                jumpCount = 1
             }
         }
-        
+
+        //if in the air
         if (!controller.isGrounded)
         {
+            //make sure we have 1 jump if we haven't used it already
+            if (jumpCount == 0)
+                jumpCount = 1;
 
             if ((Input.GetButtonDown("Jump")) && (jumpCount == 1) && dJumpEnabled)
             {
@@ -69,22 +139,7 @@ public class SphereScript : MonoBehaviour
                 //print(jumpCount);
             }
 
-            if (Input.GetKeyDown("a") || Input.GetKeyDown("left"))
-            {
-                moveDirection.x = -speed;
-            }
-            if (Input.GetKeyDown("d") || Input.GetKeyDown("right"))
-            {
-                moveDirection.x = speed;
-            }
-
         }
-
-            //transform.Translate(Input.GetAxis("Horizontal") * Time.deltaTime * 5, Input.GetAxis("Jump") * Time.deltaTime * 5, 0f);
-            //transform.Translate(Input.SetAxis())
-
-            moveDirection.y -= gravity * Time.deltaTime;
-            controller.Move(moveDirection * Time.deltaTime);
     }
 
     void UpdateTracks()
@@ -109,11 +164,11 @@ public class SphereScript : MonoBehaviour
 
         if (tracks.IsActive(2))
         {
-            dash.SetActive(true);
+            dashEnabled = true;
         }
         else
         {
-            dash.SetActive(false);
+            dashEnabled = false;
         }
 
         //if (tracks.IsActive(3))
