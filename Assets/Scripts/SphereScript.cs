@@ -57,6 +57,23 @@ public class SphereScript : MonoBehaviour
             //set dash to true, give half a second of dash time
             dashing = true;
             dashTime = .5f;
+
+            if (tracks.WithinRange(8))
+            {
+                print("super dash");
+                if (dashMult > 0)
+                    dashMult = 1.6f;
+                else if (dashMult < 0)
+                    dashMult = -1.6f;
+            }
+
+            else
+            {
+                if (dashMult > 0)
+                    dashMult = 1.0f;
+                else if (dashMult < 0)
+                    dashMult = -1.0f;
+            }
         }
 
         //if dashing
@@ -115,7 +132,7 @@ public class SphereScript : MonoBehaviour
                 moveDirection.y = jump;
 
                 //set jumpcount to 1
-                jumpCount = 1
+                jumpCount = 1;
             }
         }
 
