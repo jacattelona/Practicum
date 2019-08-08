@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SphereScript : MonoBehaviour
 {
@@ -22,13 +23,18 @@ public class SphereScript : MonoBehaviour
 
     private bool dashEnabled = true;
     private bool dJumpEnabled;
-    
+
+
+    public Toggle toggle1;
+    public Toggle toggle2;
+    public Toggle toggle3;
 
     // Start is called before the first frame update
     void Start()
     {
         //print ("Testing...");
         controller = GetComponent<CharacterController>();
+
     }
 
     // Update is called once per frame
@@ -115,6 +121,7 @@ public class SphereScript : MonoBehaviour
         {
             //reset jump count
             jumpCount = 0;
+
             //if jump button is pressed
             if (Input.GetButtonDown("Jump"))
             {
@@ -197,4 +204,5 @@ public class SphereScript : MonoBehaviour
 
         //}
     }
+
 }

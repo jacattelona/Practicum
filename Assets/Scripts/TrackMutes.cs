@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TrackMutes : MonoBehaviour
 {
@@ -16,6 +17,7 @@ public class TrackMutes : MonoBehaviour
         counter = -20;
         aud = this.GetComponent<AudioSource>();
         tracks = this.GetComponentsInChildren<Track>();
+
         foreach (Track track in tracks)
         {
             track.WaitToUnmute();
@@ -25,12 +27,15 @@ public class TrackMutes : MonoBehaviour
 
     void Update()
     {
+
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
+
             if (tracks[0].currentState == Track.State.Muted)
             {
-               // print("Start Wait Time");
+                // print("Start Wait Time");
                 tracks[0].WaitToUnmute();
+
             }
             else
             {
@@ -43,9 +48,12 @@ public class TrackMutes : MonoBehaviour
         {
             if (tracks[1].currentState == Track.State.Muted)
             {
-               // print("Start Wait Time");
+                // print("Start Wait Time");
                 tracks[1].WaitToUnmute();
+
+
             }
+        
             else
             {
                 //print("Muted");
@@ -59,11 +67,13 @@ public class TrackMutes : MonoBehaviour
             {
                 // print("Start Wait Time");
                 tracks[2].WaitToUnmute();
+
             }
             else
             {
                 //print("Muted");
                 tracks[2].Mute();
+
             }
         }
     }
