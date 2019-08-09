@@ -30,51 +30,51 @@ public class TrackMutes : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-
             if (tracks[0].currentState == Track.State.Muted)
-            {
-                // print("Start Wait Time");
                 tracks[0].WaitToUnmute();
-
-            }
             else
-            {
-                //print("Muted");
                 tracks[0].Mute();
-            }
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             if (tracks[1].currentState == Track.State.Muted)
-            {
-                // print("Start Wait Time");
                 tracks[1].WaitToUnmute();
-
-
-            }
-        
             else
-            {
-                //print("Muted");
                 tracks[1].Mute();
-            }
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha3))
         {
             if (tracks[2].currentState == Track.State.Muted)
-            {
-                // print("Start Wait Time");
                 tracks[2].WaitToUnmute();
 
-            }
             else
-            {
-                //print("Muted");
                 tracks[2].Mute();
+        }
 
+        if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            if (tracks[3].currentState == Track.State.Muted)
+            {
+                tracks[3].WaitToUnmute();
+                tracks[4].Mute();
             }
+
+            else
+                tracks[3].Mute();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha5))
+        {
+            if (tracks[4].currentState == Track.State.Muted)
+            {
+                tracks[4].WaitToUnmute();
+                tracks[3].Mute();
+            }
+
+            else
+                tracks[4].Mute();
         }
     }
     // Update is called once per frame

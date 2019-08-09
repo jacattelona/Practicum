@@ -22,6 +22,7 @@ public class SphereScript : MonoBehaviour
     public TrackMutes tracks;
 
     private bool dashEnabled = true;
+    private bool superDashEnabled = false;
     private bool dJumpEnabled;
 
 
@@ -47,11 +48,24 @@ public class SphereScript : MonoBehaviour
         Dash();
 
         //Terminal Velocity
-        if (moveDirection.y > -25.0f)
+        if (moveDirection.y > -25.0f && !controller.isGrounded)
             moveDirection.y -= gravity * Time.deltaTime;
+
 
         //Move character based on previous function calls
         controller.Move(moveDirection * Time.deltaTime);
+
+        Vector3 angle = transform.rotation.eulerAngles;
+        if (dashMult > 0)
+        {
+            angle.y = 0;
+            transform.eulerAngles = angle;
+        }
+        else if (dashMult < 0)
+        {
+            angle.y = 180f;
+            transform.eulerAngles = angle;
+        }
     }
 
     //Dash portion of update script, only affects x component of moveDirection
@@ -64,7 +78,7 @@ public class SphereScript : MonoBehaviour
             dashing = true;
             dashTime = .5f;
 
-            if (tracks.WithinRange(8))
+            if (tracks.WithinRange(8) && superDashEnabled)
             {
                 print("super dash");
                 if (dashMult > 0)
@@ -170,20 +184,20 @@ public class SphereScript : MonoBehaviour
     {
         if (tracks.IsActive(0))
         {
+
+        }
+        else
+        {
+
+        }
+
+        if (tracks.IsActive(1))
+        {
             dJumpEnabled = true;
         }
         else
         {
             dJumpEnabled = false;
-        }
-
-        if (tracks.IsActive(1))
-        {
-            jumpMult = 1.2f;
-        }
-        else
-        {
-            jumpMult = 1.0f;
         }
 
         if (tracks.IsActive(2))
@@ -195,14 +209,23 @@ public class SphereScript : MonoBehaviour
             dashEnabled = false;
         }
 
-        //if (tracks.IsActive(3))
-        //{
+        if (tracks.IsActive(3))
+        {
+            jumpMult = 1.2f;
+        }
+        else
+        {
+            jumpMult = 1.0f;
+        }
 
-        //}
-        //else
-        //{
-
-        //}
+        if (tracks.IsActive(4))
+        {
+            superDashEnabled = true;
+        }
+        else
+        {
+            superDashEnabled = false;
+        }
     }
 
 }
