@@ -129,7 +129,7 @@ public class SphereScript : MonoBehaviour
                 float jump = jumpSpeed;
 
                 //extra jump height is given if timed properly with music
-                if (tracks.WithinRange(8))
+                if (tracks.WithinRange(8) && tracks.IsActive(1))
                 {
                     jump *= jumpMult;
                     print("Super Jump");
@@ -153,7 +153,7 @@ public class SphereScript : MonoBehaviour
             if ((Input.GetButtonDown("Jump")) && (jumpCount == 1) && dJumpEnabled)
             {
                 float jump = jumpSpeed;
-                if (tracks.WithinRange(8))
+                if (tracks.WithinRange(8) && tracks.IsActive(1))
                 {
                     jump *= jumpMult;
                     print("Super Jump");
