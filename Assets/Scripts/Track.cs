@@ -35,6 +35,7 @@ public class Track : MonoBehaviour
                 else
                 {
                     aud.Play();
+                    currentState = State.UnMuted;
                     Mute();
                 }
 
